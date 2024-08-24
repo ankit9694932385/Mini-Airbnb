@@ -1,0 +1,62 @@
+<% layout("/layouts/boilerplate.ejs") %> 
+
+<br>
+    <h3 class="edit-heading">Edit Your Listing</h3> 
+      <div class="row">
+         <div class="cols">
+            <form method="POST" action="/listing/<%= data._id %>?_method=PUT" novalidate  class="needs-validation was-validated">
+<div class="mb-3">
+                  <label for="title" class="form-label">Title</label>
+                  <input name="listing[title]" value="<%= data.title %>" type="text" class="form-control" required>
+                  <div class="valid-feedback">Title looks good</div>
+              </div>
+
+                <div class="mb-3">
+                   <label for="description" class="form-label">Description</label>
+                   <textarea  name="listing[description]" minlength="20" type="text" rows="5" cols="30" class="form-control" required><%= data.description %></textarea>
+                   <div class="invalid-feedback">Enter  valid description (min - 20 char.)</div>
+                   <div class="valid-feedback">Looks Good !</div>
+                </div>
+<div class="mb-3">
+                   <label for="image" class="form-label">Image URL</label>
+                   <input name="listing[image]" type="text"  value="<%= data.image %>" class="form-control" required >
+                   <div class="invalid-feedback">enter URL</div>
+                   <div class="valid-feedback">Looks Good !</div>
+                </div>
+
+                <div class="row">
+                   <div class="mb-3 col-md-4">
+                      <label for="price" class="form-label">Price</label>
+                      <input name="listing[price]" type="number" min="0" step="50"  value="<%= data.price %>" class="form-control" required>
+                      <div class="invalid-feedback">Enter  valid  price</div>
+                      <div class="valid-feedback">Looks Good !</div>
+                   </div>
+<div class="mb-3 col-md-8" >
+                      <label for="country" class="form-label">Country</label>
+                      <input name="listing[country]" type="text" min-length="1"  value="<%= data.country %>" class="form-control" required >
+                      <div class="invalid-feedback">Enter  valid  country</div>
+                      <div class="valid-feedback">Looks Good !</div>
+                   </div>
+                </div>
+
+                <div class="mb-3">
+                   <label for="location" class="form-label">Location</label>
+                   <input name="listing[location]" type="text" minlength="1"  value="<%= data.location %>" class="form-control" required>
+                   <div class="invalid-feedback">Enter  valid  Location</div>
+                   <div class="valid-feedback">Looks Good !</div>
+                </div>
+<button class="btn btn-dark edit-btn">Save</button><br><br>
+
+             </form>
+         </div>
+      </div>
+ 
+<script src="/js/script.js" ></script>
+
+    <!-- Bootstrap CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JavaScript and dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
