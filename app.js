@@ -5,6 +5,8 @@ const mongoose = require("mongoose")
 const Listing = require("./models/listing.js")
 const methodOverride = require('method-override')
 const ejsMate = require("ejs-mate")
+const wrapAsync = require("./utils/wrapAsync.js")
+const ExpressError = require("./utils/ExpressError.js")
  
 main()
   .then(res => {
@@ -31,14 +33,14 @@ app.use(express.urlencoded({extended : true}));
 // ROUTES
 
 app.get("/" , (req , res) => {
-    res.send("home route")
+    res.send("👩👩👩👩🏻👩🏻home route💂‍♀️💂‍♀️💂‍♀️💂‍♀️")
 });
 
 // Index Route
 
-app.get("/listing" , async (req , res) => {
-  let alllisting = await Listing.find() 
-  res.render("./listing/index.ejs" , {alllisting})
+app.get("/listing" , async(req , res) => {
+    let alllisting = await Listing.find(); 
+    res.render("./listing/index.ejs" , {alllisting})
 });
 
 //  NEW ROUTE
@@ -47,57 +49,85 @@ app.get("/listing/new" , (req , res) => {
     res.render("listing/new.ejs")
 });
 
-
 // Show Route
 
-app.get("/listing/:id" , async (req , res) => {
+app.get("/listing/:id" , wrapAsync(async (req , res) => {
     let {id} = req.params;
     let data = await Listing.findById(id);
     res.render("./listing/show.ejs" , {data})
- });
+ }));
 
- // update route
+// CREATE ROUTE
 
-app.post("/listing" , async (req , res) => {
-    let {listing} = req.body
-    let newListing = await new Listing(listing)
-    newListing.save();
-    res.redirect("listing")
-});
 
-app.get("/listing/:id/edit" , async (req, res) => {
+app.post("/listing", wrapAsync(async (req, res, next) => {
+    // Check if the body exists and has the listing property
+    if (!req.body || !req.body.listing) {
+        throw new ExpressError(400, "Bad Request: Listing data is required");
+    }
+
+    let { listing } = req.body;
+
+    // Create a new listing and save it to the database
+    let newListing = new Listing(listing);
+    await newListing.save();
+
+    // Redirect to the listing page or send a success response
+    res.redirect("/listing");
+}));
+
+
+// app.post("/listing" , wrapAsync(async (req , res , next) => {
+//     let { listing } = req.body
+//     if(!listing){
+//         throw new ExpressError(400 , "Bad Request")
+//     }
+//     let newListing = await new Listing(listing)
+//     newListing.save();
+//     res.redirect("/listing")
+// }));
+
+// UPDATE ROUTE
+
+app.get("/listing/:id/edit" , wrapAsync(async (req, res) => {
     let {id} = req.params;
     let data = await Listing.findById(id);
-    if(!id){
-        throw new Error("Can't Edit this page . Wrong id")
-    }
-    res.render("listing/edit.ejs" , {data})
-});
+    res.render("./listing/edit.ejs" , {data})
+}));
 
-app.put("/listing/:id" , async (req , res) => {
+app.put("/listing/:id" , wrapAsync(async (req , res) => {
+    // if(!req.body.listing){
+    //     throw new ExpressError(400 ,  "Bad Request , Send valid data")
+    // }
     let {id} = req.params;
     let {listing} = req.body;
     let data = await Listing.findById(id);
     await Listing.findByIdAndUpdate(id , {...listing})
     res.redirect(`/listing/${id}`)
-});
+}));
 
 // DELETE ROUTE
 
-app.delete("/listing/:id" , async (req , res) => {
+app.delete("/listing/:id" , wrapAsync(async (req , res) => {
     let {id} = req.params;
     let data = await Listing.findByIdAndDelete(id);
     res.redirect("/listing")
-});
-
-app.use((err , req , res, next) => {
-    console.log(err.message)
-    next(err);
-});
+}));
 
 
 // listening route
 
 app.listen(3000 , () => {
     console.log(" listening on Port 3000....")
+});
+
+app.all("*" , (req , res , next) => {
+    throw new ExpressError(404 ,  "Page not found")
+});
+
+
+app.use((err , req , res , next) => {
+    let {statusCode= 500 , message="SOMTHING WRONG"} = err;
+    res.render("error.ejs" ,{err} )
+    next(err);
 });
