@@ -1,10 +1,19 @@
 <% layout("/layouts/boilerplate.ejs") %> 
 
+<!-- <div class="row">
+  <div class="alert alert-primary d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+      <div class="errAlert">
+        <%= err.message %>
+      </div>
+  </div>
+</div> -->
 
-<div class="alert alert-primary d-flex align-items-center" role="alert">
-    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-  <div>
-    <%= err.message %>
+<div class="row mt-4">
+  <div class="alert alert-primary d-flex align-items-center col-6 offset-3 " role="alert">
+    <div>
+      <h4 class="alert-heading"><%= err.message %></h4>
+    </div>
   </div>
 </div>
 

@@ -1,13 +1,22 @@
-const express = require("express")
+const express = require("express");
 const app = express();
-const path = require("path")
-const mongoose = require("mongoose")
-const Listing = require("./models/listing.js")
-const methodOverride = require('method-override')
-const ejsMate = require("ejs-mate")
-const wrapAsync = require("./utils/wrapAsync.js")
-const ExpressError = require("./utils/ExpressError.js")
+const path = require("path");
+const mongoose = require("mongoose");
+const methodOverride = require('method-override');
+const ejsMate = require("ejs-mate");
+const ExpressError = require("./utils/ExpressError.js");
+const session = require("express-session");
+const flash = require('connect-flash');
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
+
  
+const listingRoutes = require("./routes/listing.js");
+const reviewRoutes = require("./routes/review.js");
+const userRoutes = require("./routes/user.js");
+
+
 main()
   .then(res => {
      console.log("connection sucessfull");
@@ -15,7 +24,6 @@ main()
   .catch(err => {
      console.log(err);
   })
-
 
 async function main() {
     await  mongoose.connect('mongodb://127.0.0.1:27017/wanderlust')
@@ -29,105 +37,52 @@ app.use(express.static("public"));
 app.use(express.static(path.join(__dirname , "public")));
 app.use(express.urlencoded({extended : true}));
 
-
-// ROUTES
-
-app.get("/" , (req , res) => {
-    res.send("👩👩👩👩🏻👩🏻home route💂‍♀️💂‍♀️💂‍♀️💂‍♀️")
-});
-
-// Index Route
-
-app.get("/listing" , async(req , res) => {
-    let alllisting = await Listing.find(); 
-    res.render("./listing/index.ejs" , {alllisting})
-});
-
-//  NEW ROUTE
-
-app.get("/listing/new" , (req , res) => {
-    res.render("listing/new.ejs")
-});
-
-// Show Route
-
-app.get("/listing/:id" , wrapAsync(async (req , res) => {
-    let {id} = req.params;
-    let data = await Listing.findById(id);
-    res.render("./listing/show.ejs" , {data})
- }));
-
-// CREATE ROUTE
-
-
-app.post("/listing", wrapAsync(async (req, res, next) => {
-    // Check if the body exists and has the listing property
-    if (!req.body || !req.body.listing) {
-        throw new ExpressError(400, "Bad Request: Listing data is required");
+sessionOptions = {
+    secret : "ilovemyself",
+    resave : false,
+    saveUninitialized : true,
+    cookie : {
+        expires : Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge : 7 * 24 * 60 * 60 * 1000,
+        httpOnly : true
     }
+};
 
-    let { listing } = req.body;
+app.use(session(sessionOptions));
+app.use(flash());
 
-    // Create a new listing and save it to the database
-    let newListing = new Listing(listing);
-    await newListing.save();
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate))
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-    // Redirect to the listing page or send a success response
-    res.redirect("/listing");
-}));
+app.use( (req , res , next) => {
+    res.locals.success = req.flash("success")
+    res.locals.error = req.flash("error")
+    next()
+}) 
 
+app.use("/listing" , listingRoutes);
+app.use("/listing/:id/reviews" , reviewRoutes);
+app.use("/" , userRoutes);
 
-// app.post("/listing" , wrapAsync(async (req , res , next) => {
-//     let { listing } = req.body
-//     if(!listing){
-//         throw new ExpressError(400 , "Bad Request")
-//     }
-//     let newListing = await new Listing(listing)
-//     newListing.save();
-//     res.redirect("/listing")
-// }));
-
-// UPDATE ROUTE
-
-app.get("/listing/:id/edit" , wrapAsync(async (req, res) => {
-    let {id} = req.params;
-    let data = await Listing.findById(id);
-    res.render("./listing/edit.ejs" , {data})
-}));
-
-app.put("/listing/:id" , wrapAsync(async (req , res) => {
-    // if(!req.body.listing){
-    //     throw new ExpressError(400 ,  "Bad Request , Send valid data")
-    // }
-    let {id} = req.params;
-    let {listing} = req.body;
-    let data = await Listing.findById(id);
-    await Listing.findByIdAndUpdate(id , {...listing})
-    res.redirect(`/listing/${id}`)
-}));
-
-// DELETE ROUTE
-
-app.delete("/listing/:id" , wrapAsync(async (req , res) => {
-    let {id} = req.params;
-    let data = await Listing.findByIdAndDelete(id);
-    res.redirect("/listing")
-}));
-
-
-// listening route
 
 app.listen(3000 , () => {
     console.log(" listening on Port 3000....")
 });
 
-app.all("*" , (req , res , next) => {
-    throw new ExpressError(404 ,  "Page not found")
+// ROUTES
+app.get("/" , (req , res) => {
+    res.send("👩👩👩👩🏻👩🏻home route💂‍♀️💂‍♀️💂‍♀️💂‍♀️");
 });
 
+app.all( "*" , (req , res , next) => {
+    next(new ExpressError(404 , "Page Not Found"));
+});
 
 app.use((err , req , res , next) => {
     let {statusCode= 500 , message="SOMTHING WRONG"} = err;
-    res.render("error.ejs" ,{err} )
+    res.status(statusCode).render("error.ejs" ,{err} );
     next(err);
 });
