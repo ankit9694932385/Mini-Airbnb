@@ -30,12 +30,12 @@ module.exports.isOwner = async(req , res , next) => {
 
 module.exports.isReviewAuthor = async(req , res , next) => {
     let { id , reviewId } = req.params;
-    let newReview  = await Review.findById(reviewId)
-    console.log(newReview)
-    // if(!newReview.author.equals(res.locals.currUser._id)){
-    //     req.flash("error" , "You are not the Author of this Review !");
-    //     return res.redirect(`/listing/${id}`);
-    // }
+    let review  = await Review.findById(reviewId);
+    if(!review.author._id.equals(res.locals.currUser._id)){
+        req.flash("error" , "You are not the Author of this Review !");
+        return res.redirect(`/listing/${id}`);
+    }
+
     next();
 }
 
