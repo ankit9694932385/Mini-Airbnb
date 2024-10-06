@@ -7,6 +7,10 @@ body{
     min-width: 100vw;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .container{
     flex: 1;
     width: 100%;
@@ -135,4 +139,91 @@ body{
 .show-edit-btn{
     background-color: #fe424d !important;
     border: none !important;
+}
+
+.err-font{
+    margin-top: 4px !important ;
+}
+
+/* Logout */ 
+.Btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: .3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background-color:#fe424d;
+  }
+  
+  /* plus sign */
+  .sign {
+    width: 100%;
+    transition-duration: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sign svg {
+    width: 20px;
+    /* margin-right:5px; */
+  }
+  
+  .sign svg path {
+    fill: white;
+  }
+  /* text */
+  .text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: .3s;
+  }
+  /* hover effect on button width */
+  .Btn:hover {
+    width: 100px;
+    border-radius: 40px;
+    transition-duration: .3s;
+  }
+  
+  .Btn:hover .sign {
+    width: 20%;
+    transition-duration: .3s;
+    padding-left: 20px;
+  }
+  /* hover effect button's text */
+  .Btn:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: .3s;
+    padding-right: 10px;
+    margin-right: 12px;
+  }
+  /* button click effect*/
+  .Btn:active {
+    transform: translate(2px ,2px);
+  }
+
+/*  New Account  */
+
+.new-acc{
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* Review Background */
+
+.review-bg{
+   background-color: #ebebeb !important;
 }
