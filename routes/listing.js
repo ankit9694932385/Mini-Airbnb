@@ -6,13 +6,18 @@ const { listingSchema } = require("../Schema.js");
 const Listing = require("../models/listing.js");
 const { isLoggedIn , isOwner } = require("../middleware.js");
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' });
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
  
-const listingValidation = (req , res , next) => {
-    let { error } = listingSchema.validate(req.body)
+const listingValidation =  (req,res,next)=>{
+    console.log(req.body);
+    let {error}=listingSchema.validate(req.body,{abortEarly:false});
     if(error){
-        throw new ExpressError(400 , error )
-    }else {
+        let errMsg=error.details.map((el)=>el.message).join(", ");
+        console.log(errMsg);
+        throw new ExpressError(400,errMsg);
+    }
+    else{
         next();
     }
 }
@@ -46,15 +51,18 @@ router.get("/:id", wrapAsync(async (req, res) => {
     res.render("./listing/show.ejs", { data });
 }));
 
-// CREATE ROUTE  =    upload.single("image = from where we want to extract file name")
-router.post("/", isLoggedIn , listingValidation, upload.single('listing[image]') , wrapAsync(async (req, res) => {
-    let { listing } = req.body;
-    let newListing = new Listing(listing);
-    newListing.owner = req.user._id;
-    await newListing.save();
-    req.flash("success" , "New Listing created");
-    res.redirect("/listing");
-}));
+// CREATE ROUTE  =   ("image  upload.single= from where we want to extract data ,  file name")
+  router.post("/", isLoggedIn, upload.single('listing[image]') , wrapAsync(async (req, res) => {
+      let { listing } = req.body;
+      console.log(listing);
+      let newListing = new Listing(listing);
+      newListing.owner = req.user._id;
+      await newListing.save();
+      req.flash("success" , "New Listing created");
+      res.redirect("/listing");
+ }))
+
+
 
 // EDIT ROUTE
 router.get("/:id/edit", isLoggedIn , isOwner , wrapAsync(async (req, res) => {
