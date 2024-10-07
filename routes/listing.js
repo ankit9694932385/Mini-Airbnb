@@ -5,6 +5,8 @@ const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../Schema.js");
 const Listing = require("../models/listing.js");
 const { isLoggedIn , isOwner } = require("../middleware.js");
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' });
  
 const listingValidation = (req , res , next) => {
     let { error } = listingSchema.validate(req.body)
@@ -44,8 +46,8 @@ router.get("/:id", wrapAsync(async (req, res) => {
     res.render("./listing/show.ejs", { data });
 }));
 
-// CREATE ROUTE
-router.post("/", isLoggedIn , listingValidation, wrapAsync(async (req, res) => {
+// CREATE ROUTE  =    upload.single("image = from where we want to extract file name")
+router.post("/", isLoggedIn , listingValidation, upload.single('listing[image]') , wrapAsync(async (req, res) => {
     let { listing } = req.body;
     let newListing = new Listing(listing);
     newListing.owner = req.user._id;
@@ -68,7 +70,7 @@ router.get("/:id/edit", isLoggedIn , isOwner , wrapAsync(async (req, res) => {
 // UPDATE ROUTE
 router.put("/:id", isLoggedIn , isOwner , listingValidation, wrapAsync(async (req, res) => {
     let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body });
+    await Listing.findByIdAndUpdate( id , {...req.body.listing} , {new : true})
     req.flash("success" , "Listing Updated");
     res.redirect(`/listing/${id}`);
 }));

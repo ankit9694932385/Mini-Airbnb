@@ -21,7 +21,7 @@ const reviewValidation = (req , res , next) => {
 // REVIEWS 
 // REVIEW POST ROUTE
 
-router.post("/" , isLoggedIn , isReviewAuthor , reviewValidation, wrapAsync(async (req , res) => {
+router.post("/" , isLoggedIn , reviewValidation, wrapAsync(async (req , res) => {
     let listing = await Listing.findById(req.params.id)
     let newReview = new Review(req.body.review);
     newReview.author = req.user._id;

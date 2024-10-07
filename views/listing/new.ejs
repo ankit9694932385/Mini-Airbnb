@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-8 offset-2" >
     <h2>Create New Listing</h2>
-    <form method="POST" action="/listing" novalidate class="needs-validation">
+    <form method="POST" action="/listing" novalidate class="needs-validation" enctype="multipart/form-data">
       
        <div class="mb-3">
           <label for="title" class="form-label">Title</label>  
@@ -16,14 +16,14 @@
 
       <div class="mb-3">
          <label for="description" class="form-label">Description</label>
-         <textarea  name="listing[description]"  minlength="20" type="text" placeholder="Enter description" rows="5" cols="30" class="form-control" required ></textarea>
-         <div class="invalid-feedback">Enter  valid description (min - 20 char.)</div>
+         <textarea  name="listing[description]"  minlength="5" type="text" placeholder="Enter description" rows="5" cols="30" class="form-control" required ></textarea>
+         <div class="invalid-feedback">Enter valid description</div>
          <div class="valid-feedback ">  looks good !</div>
       </div>
 
       <div class="mb-3">
-         <label for="image" class="form-label">Image URL</label>
-         <input name="listing[image]" type="text" placeholder="image URL/link" class="form-control" >
+         <label for="image" class="form-label">Image</label>
+         <input name="listing[image]" type="file" class="form-control" id="image" >
       </div>
 
       <div class="row">
