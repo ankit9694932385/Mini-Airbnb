@@ -1,6 +1,11 @@
 <% layout("/layouts/boilerplate.ejs") %> <br>
 
-<!-- SECOND -->
+<script>
+   const mapToken = "<%= process.env.MAP_TOKEN %>"
+   const coordinates = "<%- JSON.stringify(data.geometry.coordinates) %>";
+</script>
+
+<%= console.log(data.geometry.coordinates) %>
 
 <div class="row">
     <div class="col-6 offset-2">
@@ -80,17 +85,4 @@
         </div>
     </div>
 
-    <script>
-      let mapToken = "<%= process.env.MAP_TOKEN %>"
-      console.log(mapToken);
-      mapboxgl.accessToken = mapToken
-        const map = new mapboxgl.Map({
-            container: 'map', // container ID
-            center: [75.7158, 27.1656], // starting position [lng, lat]. Note that lat must be set between -90 and 90
-            zoom: 9 // starting zoom
-        });
-
-        const marker1 = new mapboxgl.Marker()
-        .setLngLat([12.554729, 55.70651])
-        .addTo(map);
-    </script>
+<script src="/js/map.js"></script>
