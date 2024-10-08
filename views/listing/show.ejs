@@ -6,7 +6,7 @@
     <div class="col-6 offset-2">
         <h3><%= data.title %></h3>
         <div class="card listing-card">
-            <a href="<%= data.image %>"><img src="<%= data.image %>" class="card-img-top show-img" alt="Listing_image"></a>
+            <a href="<%= data.image.url %>"><img src="<%= data.image.url %>" class="card-img-top show-img" alt="Listing_image"></a>
             <div class="card-body">
                 <p>- Owned by <i><b><%= data.owner ? data.owner.username : 'Unknown Owner' %></b></i></p>
                 <p>- <%= data.description %></p>
@@ -50,8 +50,9 @@
             </form><br>
     
             <!-- ALL REVIEWS -->
-            <p><b>All Reviews :-</b></p>
+            <% if(data.review.length > 0) { %>
             <div class="row">
+              <p><b>All Reviews :-</b></p>
               <% for (let review of data.review) { %>
                   <div class="card mb-3 col-5 ms-3 review-bg">
                      <div class="card-body mb-1 mt-2">
@@ -71,5 +72,25 @@
                   </div>
               <% } %>
             </div>
+          <% } %>
+        </div>
+        <div class="col-7 offset-2 mb-3 mt-2" >
+            <h4>Where you will be</h4>
+            <div id="map"></div>
         </div>
     </div>
+
+    <script>
+      let mapToken = "<%= process.env.MAP_TOKEN %>"
+      console.log(mapToken);
+      mapboxgl.accessToken = mapToken
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            center: [75.7158, 27.1656], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+            zoom: 9 // starting zoom
+        });
+
+        const marker1 = new mapboxgl.Marker()
+        .setLngLat([12.554729, 55.70651])
+        .addTo(map);
+    </script>

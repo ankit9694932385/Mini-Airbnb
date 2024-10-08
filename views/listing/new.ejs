@@ -23,20 +23,20 @@
 
       <div class="mb-3">
          <label for="image" class="form-label">Image</label>
-         <input name="listing[image]" type="file" class="form-control" id="image" >
+         <input name="listing[image]" type="file" class="form-control" id="image" required >
       </div>
 
       <div class="row">
          <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
-            <input name="listing[price]" type="number" step="50" placeholder="Enter price" class="form-control" required>
+            <input name="listing[price]" type="number" min="0" step="50" placeholder="Enter price" class="form-control" required>
             <div class="invalid-feedback">Enter  valid  price</div>
             <div class="valid-feedback ">  looks good !</div>
          </div>
    
          <div class="mb-3 col-md-8" >
             <label for="country" class="form-label">Country</label>
-            <input name="listing[country]" type="text" placeholder="Enter country" class="form-control" required >
+            <input name="listing[country]" type="text" placeholder="india" class="form-control" required >
             <div class="invalid-feedback">Enter  valid  country</div>
             <div class="valid-feedback ">  looks good !</div>
          </div>
@@ -44,7 +44,7 @@
 
       <div class="mb-3">
          <label for="location" class="form-label">Location</label>
-         <input name="listing[location]" type="text" placeholder="Enter location" class="form-control" required>
+         <input name="listing[location]" type="text" placeholder="Jaipur,Rajasthan " class="form-control" required>
          <div class="invalid-feedback">Enter  valid  Location</div>
          <div class="valid-feedback ">  looks good !</div>
       </div>

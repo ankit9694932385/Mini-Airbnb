@@ -227,3 +227,10 @@ body::-webkit-scrollbar {
 .review-bg{
    background-color: #ebebeb !important;
 }
+
+/* MAP */
+
+#map{
+    height: 400px;
+    width:90%;
+}
