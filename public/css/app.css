@@ -1,236 +1,234 @@
-body{
-    overflow-x: hidden;
-    font-family: "Plus Jakarta Sans", sans-serif !important;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    min-width: 100vw;
+body {
+  overflow-x: hidden;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 body::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
-.container{
-    flex: 1;
-    width: 100%;
-    
+.container {
+  flex: 1;
+  width: 100%;
 }
 
 /* Navbar */
 
-.navbar{
-   height: 5rem ;
-   background-color: #fff;
-   width: 100vw !important;
-}
- 
-
-.fa-compass{
-    color: #fe424d;
-    font-size: 1.8rem;
+.navbar {
+  height: 5rem;
+  background-color: #fff;
+  width: 100vw !important;
 }
 
-.nav-link{
-    color : black  !important ;  
+.fa-compass {
+  color: #fe424d;
+  font-size: 1.8rem;
 }
 
+.nav-link {
+  color: black !important ;
+}
 
 /* Footer */
 
-.footer{
-    width: 100vw !important;
- }
-
-.f-info-links , .f-social-info , .f-info-brand{
-   width: 100%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
+.footer {
+  width: 100vw !important;
 }
 
-.f-social-info i{
-    margin-left: 1rem;
-    font-size: 1.3rem;
+.f-info-links,
+.f-social-info,
+.f-info-brand {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.f-social-info i:hover{
-    font-size: 1.40rem;
-    box-shadow: 1px 1px 2px white;
+.f-social-info i {
+  margin-left: 1rem;
+  font-size: 1.3rem;
 }
 
-.f-info{
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: center;
-   text-align: center;
-   height: 8rem;
-   background-color: #ebebeb;
-}
- 
-
-.f-info-links a{
-     text-decoration: none;
-     margin-left: 0.40rem;
+.f-social-info i:hover {
+  font-size: 1.4rem;
+  box-shadow: 1px 1px 2px white;
 }
 
-.f-info-links a:hover{
-    text-decoration: underline;
+.f-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  height: 8rem;
+  background-color: #ebebeb;
+}
+
+.f-info-links a {
+  text-decoration: none;
+  margin-left: 0.4rem;
+}
+
+.f-info-links a:hover {
+  text-decoration: underline;
 }
 
 /* card */
 
-.listing-card{
-    border: none !important;
-    margin-bottom: 1rem;
+.listing-card {
+  border: none !important;
+  margin-bottom: 1rem;
 }
 
-.card-img-top{
-    width: 100% !important;
-    border-radius: 10px !important;
-    object-fit: cover !important;
+.card-img-top {
+  width: 100% !important;
+  border-radius: 10px !important;
+  object-fit: cover !important;
 }
 
-.card-body{
-    padding: 0 !important;
+.card-body {
+  padding: 0 !important;
 }
 
-.listing-link{
-    text-decoration: none;
-}
- 
-.card-img-overlay{
-    opacity: 0;
+.listing-link {
+  text-decoration: none;
 }
 
-.card-img-overlay:hover{
-    opacity: 0.2;
-    background-color: white;
+.card-img-overlay {
+  opacity: 0;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: white;
 }
 
 /* NEW Page */
-.new-btn{
-    background-color: #fe424d !important;
-    border: none !important;
+.new-btn {
+  background-color: #fe424d !important;
+  border: none !important;
 }
 
 /* Edit page */
 
-.edit-heading{
-    margin-bottom: 1rem;
+.edit-heading {
+  margin-bottom: 1rem;
 }
 
-.edit-btn{
-    background-color: #fe424d !important;
-    border: none !important;
+.edit-btn {
+  background-color: #fe424d !important;
+  border: none !important;
 }
 
 /* show page */
 
-.show-img{
-    height: 45vh;
-    width: 50vw !important;
+.show-img {
+  height: 45vh;
+  width: 50vw !important;
 }
 
-.show-btns{
-    display: flex;
+.show-btns {
+  display: flex;
 }
 
-.show-edit-btn{
-    background-color: #fe424d !important;
-    border: none !important;
+.show-edit-btn {
+  background-color: #fe424d !important;
+  border: none !important;
 }
 
-.err-font{
-    margin-top: 4px !important ;
+.err-font {
+  margin-top: 4px !important ;
 }
 
-/* Logout */ 
+/* Logout */
 .Btn {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 38px;
-    height: 38px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition-duration: .3s;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-    background-color:#fe424d;
-  }
-  
-  /* plus sign */
-  .sign {
-    width: 100%;
-    transition-duration: .3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .sign svg {
-    width: 20px;
-    /* margin-right:5px; */
-  }
-  
-  .sign svg path {
-    fill: white;
-  }
-  /* text */
-  .text {
-    position: absolute;
-    right: 0%;
-    width: 0%;
-    opacity: 0;
-    color: white;
-    font-size: 1.2em;
-    font-weight: 600;
-    transition-duration: .3s;
-  }
-  /* hover effect on button width */
-  .Btn:hover {
-    width: 100px;
-    border-radius: 40px;
-    transition-duration: .3s;
-  }
-  
-  .Btn:hover .sign {
-    width: 20%;
-    transition-duration: .3s;
-    padding-left: 20px;
-  }
-  /* hover effect button's text */
-  .Btn:hover .text {
-    opacity: 1;
-    width: 70%;
-    transition-duration: .3s;
-    padding-right: 10px;
-    margin-right: 12px;
-  }
-  /* button click effect*/
-  .Btn:active {
-    transform: translate(2px ,2px);
-  }
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: #fe424d;
+}
+
+/* plus sign */
+.sign {
+  width: 100%;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 20px;
+  /* margin-right:5px; */
+}
+
+.sign svg path {
+  fill: white;
+}
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: 0.3s;
+}
+/* hover effect on button width */
+.Btn:hover {
+  width: 100px;
+  border-radius: 40px;
+  transition-duration: 0.3s;
+}
+
+.Btn:hover .sign {
+  width: 20%;
+  transition-duration: 0.3s;
+  padding-left: 20px;
+}
+/* hover effect button's text */
+.Btn:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: 0.3s;
+  padding-right: 10px;
+  margin-right: 12px;
+}
+/* button click effect*/
+.Btn:active {
+  transform: translate(2px, 2px);
+}
 
 /*  New Account  */
 
-.new-acc{
-    text-decoration: none;
-    font-weight: 700;
+.new-acc {
+  text-decoration: none;
+  font-weight: 700;
 }
 
 /* Review Background */
 
-.review-bg{
-   background-color: #ebebeb !important;
+.review-bg {
+  background-color: #ebebeb !important;
 }
 
 /* MAP */
 
-#map{
-    height: 400px;
-    width:90%;
+#map {
+  height: 500px;
+  width: 100%;
 }
