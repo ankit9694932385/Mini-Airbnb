@@ -33,6 +33,10 @@ body::-webkit-scrollbar {
   color: black !important ;
 }
 
+.nav-link:hover {
+  font-weight: 500 !important;
+}
+
 /* Footer */
 
 .footer {
@@ -48,14 +52,26 @@ body::-webkit-scrollbar {
   justify-content: center;
 }
 
+.f-info-brand {
+  font-weight: 500;
+}
+
+.f-info-brand:hover {
+  font-weight: 700;
+}
+
 .f-social-info i {
-  margin-left: 1rem;
+  color: black;
+  margin-left: 2rem;
   font-size: 1.3rem;
 }
 
+.f-social-info a {
+  text-decoration: underline;
+}
+
 .f-social-info i:hover {
-  font-size: 1.4rem;
-  box-shadow: 1px 1px 2px white;
+  font-size: 1.5rem;
 }
 
 .f-info {
@@ -231,4 +247,12 @@ body::-webkit-scrollbar {
 #map {
   height: 500px;
   width: 100%;
+}
+
+.filter i:hover {
+  font-size: 15px;
+}
+
+.filter p:hover {
+  font-weight: bold;
 }
