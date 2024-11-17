@@ -9,10 +9,12 @@ const listingSchema = new Schema({
     type: String,
     required: true,
   },
+
   description: {
     type: String,
     required: true,
   },
+
   image: {
     url: String,
     filename: String,

@@ -78,9 +78,21 @@ const sessionOptions = {
     expires: Date.now() + 7 * 24 * 3600 * 1000,
     maxAge: 7 * 24 * 3600 * 1000,
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
   },
 };
+
+// const sessionOptions = {
+//   store: store,
+//   secret: process.env.SECRET,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {
+//     expires: Date.now() + 7 * 24 * 3600 * 1000,
+//     maxAge: 7 * 24 * 3600 * 1000,
+//     httpOnly: true,
+//     secure: process.env.NODE_ENV === "production",
+//   },
+// };
 
 app.use(session(sessionOptions));
 app.use(flash());
