@@ -39,28 +39,48 @@ body::-webkit-scrollbar {
 
 /* Footer */
 
+.footer-1 {
+  background-color: #ebebeb;
+  border-bottom: 2px solid #cdc1c1;
+}
+
+.f-info-1 {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: 57%;
+  width: 100%;
+  padding: 20px;
+}
+
+.f-info-1 li {
+  list-style-type: none;
+  margin-top: 8px;
+  font-size: 15px;
+  font-family: sans-serif;
+  opacity: 0.75;
+}
+
+.f-info-1 li:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
 .footer {
   width: 100vw !important;
 }
 
-.f-info-links,
 .f-social-info,
-.f-info-brand {
-  width: 100%;
+.f-info-links {
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .f-info-brand {
   font-weight: 500;
 }
 
-.f-info-brand:hover {
-  font-weight: 700;
-}
-
 .f-social-info i {
+  opacity: 0.8;
   color: black;
   margin-left: 2rem;
   font-size: 1.3rem;
@@ -71,16 +91,26 @@ body::-webkit-scrollbar {
 }
 
 .f-social-info i:hover {
-  font-size: 1.5rem;
+  transform: scale(1.2);
+  opacity: 1;
 }
 
-.f-info {
+.airbnb-links {
+  margin-left: 100px;
+}
+
+.f-info-2 {
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: end;
   text-align: center;
-  height: 8rem;
+  padding: 0 110px;
+  width: 100%;
+  height: 5rem;
   background-color: #ebebeb;
+  padding-bottom: 20px;
+  font-size: 15px;
 }
 
 .f-info-links a {
@@ -157,6 +187,25 @@ body::-webkit-scrollbar {
 
 .err-font {
   margin-top: 4px !important ;
+}
+
+/*  LOGIN PAGE  */
+
+.login-h {
+  letter-spacing: 4px;
+  font-family: cursive;
+  font-weight: 500;
+  filter: drop-shadow(1px 1px 2px rgb(215, 0, 0));
+}
+
+/* SIGN IN PAGE */
+
+.sign-h {
+  margin-left: 15px;
+  letter-spacing: 4px;
+  font-family: cursive;
+  font-weight: 500;
+  filter: drop-shadow(1px 1px 2px rgb(215, 0, 0));
 }
 
 /* Logout */
