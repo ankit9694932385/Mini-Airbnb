@@ -5,8 +5,8 @@
   }
 </style>
 
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-md bg-light border-bottom sticky-top">
+  <div class="container">
     <a class="navbar-brand mt-2" href="/listing">
       <svg
         class="mb-2 offset-2"
@@ -85,7 +85,32 @@
         >
         <a class="nav-link mt-2" href="/login"><b>Log in</b></a>
         <% } %> <% if(currUser){ %>
-        <a class="nav-link me-4" href="/logout">
+        <div class="dropdown mt-2">
+          <button class="dropbtn">
+            <i class="fa-solid fa-bars"></i> &nbsp; &nbsp;&nbsp; &nbsp;
+            <div class="user-container">
+              <i class="fa-solid fa-user"></i>
+            </div>
+          </button>
+          <div class="dropdown-content">
+            <a href="/profile"
+              ><i class="fa-regular fa-user"></i> &nbsp;&nbsp;&nbsp;Profile</a
+            >
+            <a href="/logout"
+              ><i class="fa-solid fa-right-from-bracket"></i> &nbsp;&nbsp;&nbsp;
+              Log Out</a
+            >
+            <br />
+            <div
+              style="border-bottom: 0.25px solid grey; margin-bottom: 5px"
+            ></div>
+            <a href="/listing/new"
+              ><i class="fa-solid fa-house-user"></i>&nbsp;&nbsp;&nbsp;Airbnb
+              your home</a
+            >
+          </div>
+        </div>
+        <!-- <a class="nav-link me-4" href="/logout">
           <button class="Btn">
             <div class="sign">
               <svg viewBox="0 0 512 512">
@@ -96,9 +121,47 @@
             </div>
             <div class="text">Logout</div>
           </button>
-        </a>
+        </a> -->
         <% } %>
       </div>
     </div>
   </div>
 </nav>
+<script>
+  const dropdown = document.querySelector(".dropdown-content");
+  const dropbtn = document.querySelector(".dropbtn");
+
+  dropbtn.addEventListener("click", () => {
+    dropdown.style.display =
+      dropdown.style.display === "none" ? "block" : "none";
+  });
+
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   const dropdowns = document.querySelectorAll(".dropdown");
+
+  //   dropdowns.forEach((dropdown) => {
+  //     const btn = dropdown.querySelector(".dropbtn");
+
+  //     btn.addEventListener("click", (e) => {
+  //       e.stopPropagation();
+  //       dropdown.classList.toggle("active");
+  //     });
+  //   });
+
+  //   document.addEventListener("click", (e) => {
+  //     dropdowns.forEach((dropdown) => {
+  //       if (!dropdown.contains(e.target)) {
+  //         dropdown.classList.remove("active");
+  //       }
+  //     });
+  //   });
+
+  //   document.addEventListener("keydown", (e) => {
+  //     if (e.key === "Escape") {
+  //       dropdowns.forEach((dropdown) => {
+  //         dropdown.classList.remove("active");
+  //       });
+  //     }
+  //   });
+  // });
+</script>

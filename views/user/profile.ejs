@@ -1,0 +1,103 @@
+<% layout("/layouts/boilerplate.ejs") %> <br />
+
+<% if (currUserData && currUserData.length > 0) { %> <%= let userProfile =
+currUserData[0]; %> <% } else { %>
+<h2>No profile data available.</h2>
+<% } %>
+
+<!-- Extract the first user profile -->
+
+<div class="container profilepage-container d-flex">
+  <!-- profile-section  -->
+
+  <div class="row d-flex justify-content-start me-2 mt-4 col-4">
+    <div class="col-12 profile-section">
+      <div class="card profile-card w-100 p-4 h-50">
+        <div class="text-center">
+          <img
+            src="https://i.imgur.com/bDLhJiP.jpg"
+            width="100"
+            class="rounded-circle"
+          />
+        </div>
+
+        <div class="text-center mt-3 position-relative">
+          <div class="text-center d-inline-flex flex-column">
+            <div class="text-capitalize text-start">
+              <i class="fa-solid fa-user"></i>
+              &nbsp;&nbsp;<%= userProfile.owner.username %> <br />
+            </div>
+            <div class="text-start mt-2">
+              <i class="fa-solid fa-envelope mt-2"></i> &nbsp; <%=
+              userProfile.owner.email %>
+            </div>
+            <div class="text-start mt-2">
+              <i class="fa-solid fa-briefcase mt-2"></i> &nbsp;
+              <select name="" id="" class="border-0">
+                <option value="">Web Developer</option>
+                <option value="">House Wife</option>
+                <option value="">Worker</option>
+                <option value="">Gamer</option>
+              </select>
+            </div>
+          </div>
+
+          <ul class="social-list mt-4">
+            <a href="https://www.facebook.com"
+              ><li><i class="fa-brands fa-facebook text-primary"></i></li
+            ></a>
+            <a href="https://www.instagram.com"
+              ><li><i class="fa-brands fa-instagram text-danger"></i></li
+            ></a>
+            <a href="https://www.linkedin.com"
+              ><li><i class="fa-brands fa-linkedin text-primary"></i></li
+            ></a>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- listing-section  -->
+
+  <div class="row col-9" data-bs-spy="scroll">
+    <div class="listing-section col-12">
+      <h4 class="card-title text-center text-danger tracking-wide">
+        MY &nbsp; LISTINGS
+      </h4>
+      <br />
+      <% if(currUserData.length <= 0) { %>
+      <h2>No listing created yet</h2>
+      <a href="">Create One</a>
+      <% } else {%>
+      <div class="card-columns d-flex flex-wrap justify-content-center">
+        <% for(let currData of currUserData){ %>
+        <div class="card profile-listing-card mb-2">
+          <a>
+            <img
+              class="card-img-top"
+              src="<%= currData.image.url %>"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><%= currData.title %></h5>
+              <p class="card-text"><%= currData.description %></p>
+              <p class="card-text card-text-2">
+                <small class="text-muted">
+                  <i class="fas fa-calendar-alt me-2"></i>Jan 20, 2018
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <i class="fa-solid fa-location-dot"></i>&nbsp; <%=
+                  currData.country %></small
+                >
+              </p>
+            </div>
+          </a>
+        </div>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<br /><br />

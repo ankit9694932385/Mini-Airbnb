@@ -37,6 +37,72 @@ body::-webkit-scrollbar {
   font-weight: 500 !important;
 }
 
+.dropbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  color: white;
+  padding: 5px 8px 5px 8px;
+  width: 80px;
+  height: 45px;
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+.dropbtn i {
+  color: rgb(2, 2, 2);
+}
+
+.dropbtn .user-container {
+  width: 26px;
+  height: 26px;
+  border: 2px solid #000000;
+  background-color: rgb(230, 227, 227);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 5%;
+  margin-top: 10px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  min-width: 240px;
+  min-height: 210px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  padding-bottom: 10px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 20px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 15px;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(225, 220, 220, 0.3);
+}
+
+.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
 /* Footer */
 
 .footer-1 {
@@ -304,4 +370,117 @@ body::-webkit-scrollbar {
 
 .filter p:hover {
   font-weight: bold;
+}
+
+/* Profile.ejs  */
+
+.profilepage-container {
+  height: 700px;
+}
+
+.profile-card {
+  border: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.profile-card:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: #e1bee7;
+  transform: scaleY(1);
+  transition: all 0.5s;
+  transform-origin: bottom;
+}
+
+.profile-card:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: #b60e0e;
+  transform: scaleY(0);
+  transition: all 0.5s;
+  transform-origin: bottom;
+}
+
+.profile-card:hover::after {
+  transform: scaleY(1);
+}
+
+.fonts {
+  font-size: 11px;
+}
+
+.social-list {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+}
+
+.social-list li {
+  padding: 15px;
+  font-size: 25px;
+}
+
+.social-list li:hover {
+  transform: scale(1.2);
+}
+
+.buttons button:nth-child(1) {
+  border: 1px solid #b60e0e !important;
+  color: #b60e0e;
+  height: 40px;
+}
+
+.buttons button:nth-child(1):hover {
+  border: 1px solid #b60e0e !important;
+  color: #fff;
+  height: 40px;
+  background-color: #b60e0e;
+}
+
+.buttons button:nth-child(2) {
+  border: 1px solid #b60e0e !important;
+  background-color: #b60e0e;
+  color: #fff;
+  height: 40px;
+}
+
+.listing-section {
+  max-height: 600px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.profile-listing-card {
+  width: 300px !important;
+  height: auto !important;
+  padding: 5px;
+  margin: 20px 25px 0 0;
+}
+
+.card-img-top {
+  height: 255px;
+  margin-bottom: 5px;
+}
+
+.card-body {
+  text-wrap: balance;
+  text-decoration: none;
+  color: black !important;
+}
+
+.card-title {
+  text-decoration: none;
+  font-weight: 600;
 }
