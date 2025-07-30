@@ -38,6 +38,18 @@ router.get("/new", isLoggedIn, (req, res) => {
   res.render("listing/new.ejs");
 });
 
+
+// SEARCH ROUTE
+
+router.get(
+  "/search",
+  wrapAsync(async (req, res) => {
+    let { searchData } = req.query
+    console.log(searchData)
+
+  })
+);
+
 // SHOW ROUTE
 router.get(
   "/:id",
@@ -93,13 +105,15 @@ router.post(
   })
 );
 
+// EDIT ROUTE
+
 router.get(
   "/:id/edit",
   isLoggedIn,
   isOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    // EDIT ROUTE
+
     let data = await Listing.findById(id);
     if (!data) {
       req.flash("error", "Listing not Exist");
@@ -127,6 +141,7 @@ router.put(
       let url = req.file.path;
       let filename = req.file.filename;
       listing.image = { url, filename };
+      console.log(listing)
       await listing.save();
     }
     req.flash("success", "Listing Updated");
@@ -146,5 +161,8 @@ router.delete(
     res.redirect("/listing");
   })
 );
+
+
+
 
 module.exports = router;

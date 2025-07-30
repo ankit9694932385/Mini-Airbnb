@@ -20,7 +20,7 @@ let initDb = async () => {
     ...obj,
     owner: "67024e84de57852114de57ee",
   }));
-  await Listing.insertMany(initdata.data);
+  await Listing.insertMany(initdata.data[0]);
   console.log("data saved");
 };
 

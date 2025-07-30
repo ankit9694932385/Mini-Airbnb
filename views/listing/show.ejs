@@ -15,11 +15,13 @@
           class="card-img-top show-img shadow"
           alt="Listing_image"
       /></a>
-      <div class="card-body">
+      <div class="card-body mt-3">
         <p>
           - Owned by
           <i
-            ><b><%= data.owner ? data.owner.username : 'Unknown Owner' %></b></i
+            ><b class="text-capitalize"
+              ><%= data.owner ? data.owner.username : 'Unknown Owner' %></b
+            ></i
           >
         </p>
         <p>- <%= data.description %></p>
@@ -29,6 +31,7 @@
         </p>
         <p>- <%= data.country %> <br /></p>
         <p>- <%= data.location %> <br /></p>
+        <p>- <%= data.category %> <br /></p>
       </div>
     </div>
     <div class="show-btns">

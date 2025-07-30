@@ -12,6 +12,7 @@
         class="needs-validation"
         enctype="multipart/form-data"
       >
+        <!-- Title -->
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input
@@ -24,7 +25,7 @@
           <div class="invalid-feedback">Enter valid title</div>
           <div class="valid-feedback">looks good !</div>
         </div>
-
+        <!-- Description -->
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
           <textarea
@@ -41,6 +42,7 @@
           <div class="valid-feedback">looks good !</div>
         </div>
 
+        <!-- Image -->
         <div class="mb-3">
           <label for="image" class="form-label">Image</label>
           <input
@@ -51,7 +53,7 @@
             required
           />
         </div>
-
+        <!-- Price -->
         <div class="row">
           <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
@@ -67,21 +69,35 @@
             <div class="invalid-feedback">Enter valid price</div>
             <div class="valid-feedback">looks good !</div>
           </div>
-
-          <div class="mb-3 col-md-8">
+          <!-- Country -->
+          <div class="mb-3 col-md-4">
             <label for="country" class="form-label">Country</label>
             <input
               name="listing[country]"
               type="text"
-              placeholder="india"
+              placeholder="India"
               class="form-control"
               required
             />
             <div class="invalid-feedback">Enter valid country</div>
             <div class="valid-feedback">looks good !</div>
           </div>
-        </div>
 
+          <!-- Category -->
+          <div class="mb-3 col-md-4">
+            <label for="category" class="form-label">Category</label>
+            <input
+              name="listing[category]"
+              type="text"
+              placeholder=" Beach"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">Enter valid data</div>
+            <div class="valid-feedback">looks good !</div>
+          </div>
+        </div>
+        <!-- Location -->
         <div class="mb-3">
           <label for="location" class="form-label">Location</label>
           <input

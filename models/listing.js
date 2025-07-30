@@ -31,6 +31,11 @@ const listingSchema = new Schema({
     required: true,
   },
 
+  category: {
+    type: String,
+    required: true,
+  },
+
   review: [
     {
       type: Schema.Types.ObjectId,

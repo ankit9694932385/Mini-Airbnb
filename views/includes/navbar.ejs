@@ -62,9 +62,16 @@
         <a class="nav-link" href="/listing">Explore</a>
       </div>
       <div class="search ms-auto">
-        <form class="d-flex" role="search">
+        <!-- form section -->
+        <form
+          class="form d-flex"
+          role="search"
+          method="get"
+          action="/listing/search"
+        >
           <input
-            class="form-control me-2"
+            class="form-control search-input me-2"
+            name="searchData"
             type="search"
             placeholder="Search You Home"
             aria-label="Search"
@@ -85,83 +92,84 @@
         >
         <a class="nav-link mt-2" href="/login"><b>Log in</b></a>
         <% } %> <% if(currUser){ %>
-        <div class="dropdown mt-2">
-          <button class="dropbtn">
-            <i class="fa-solid fa-bars"></i> &nbsp; &nbsp;&nbsp; &nbsp;
-            <div class="user-container">
-              <i class="fa-solid fa-user"></i>
-            </div>
+
+        <!-- Profile Section -->
+        <div class="profile-container dropdown mt-2">
+          <button class="profile-icon dropbtn">
+            <%= currUser.username.charAt(0).toUpperCase() %>
           </button>
-          <div class="dropdown-content">
-            <a href="/profile"
-              ><i class="fa-regular fa-user"></i> &nbsp;&nbsp;&nbsp;Profile</a
-            >
-            <a href="/logout"
-              ><i class="fa-solid fa-right-from-bracket"></i> &nbsp;&nbsp;&nbsp;
-              Log Out</a
-            >
-            <br />
-            <div
-              style="border-bottom: 0.25px solid grey; margin-bottom: 5px"
-            ></div>
-            <a href="/listing/new"
-              ><i class="fa-solid fa-house-user"></i>&nbsp;&nbsp;&nbsp;Airbnb
-              your home</a
-            >
+          <div class="profile-dropdown">
+            <div class="profile-header">
+              <img src="avatar.jpg" alt="" />
+              <div class="profile-info">
+                <h3><%= currUser.username %></h3>
+                <p><%= currUser.email %></p>
+              </div>
+            </div>
+            <div class="dropdown-content">
+              <a href="/profile"
+                ><i class="fa-regular fa-user"></i> &nbsp;&nbsp;&nbsp;Profile</a
+              >
+              <a href="#"
+                ><i class="fa-solid fa-gear"></i> &nbsp;&nbsp;&nbsp;Settings</a
+              >
+
+              <a href="/logout"
+                ><i class="fa-solid fa-right-from-bracket"></i>
+                &nbsp;&nbsp;&nbsp; Log Out</a
+              >
+              <hr />
+              <a href="/listing/new"
+                ><i class="fa-solid fa-house-user"></i>&nbsp;&nbsp;&nbsp;Airbnb
+                your home</a
+              >
+            </div>
           </div>
         </div>
-        <!-- <a class="nav-link me-4" href="/logout">
-          <button class="Btn">
-            <div class="sign">
-              <svg viewBox="0 0 512 512">
-                <path
-                  d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
-                ></path>
-              </svg>
-            </div>
-            <div class="text">Logout</div>
-          </button>
-        </a> -->
+
         <% } %>
       </div>
     </div>
   </div>
 </nav>
 <script>
-  const dropdown = document.querySelector(".dropdown-content");
+  const dropdown = document.querySelector(".profile-dropdown");
   const dropbtn = document.querySelector(".dropbtn");
+  let isOpen = false;
 
-  dropbtn.addEventListener("click", () => {
-    dropdown.style.display =
-      dropdown.style.display === "none" ? "block" : "none";
+  // Icon click dropdown
+
+  dropbtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    isOpen = !isOpen;
+    dropdown.classList.toggle("active", isOpen);
   });
 
-  // document.addEventListener("DOMContentLoaded", () => {
-  //   const dropdowns = document.querySelectorAll(".dropdown");
+  // Outside Click Drop down
 
-  //   dropdowns.forEach((dropdown) => {
-  //     const btn = dropdown.querySelector(".dropbtn");
+  document.addEventListener("click", (e) => {
+    if (e.target != dropbtn && isOpen && !dropdown.contains(e.target)) {
+      dropdown.classList.remove("active");
+      isOpen = false;
+    }
+  });
 
-  //     btn.addEventListener("click", (e) => {
-  //       e.stopPropagation();
-  //       dropdown.classList.toggle("active");
-  //     });
-  //   });
+  // On clicking the ESCAPE button
 
-  //   document.addEventListener("click", (e) => {
-  //     dropdowns.forEach((dropdown) => {
-  //       if (!dropdown.contains(e.target)) {
-  //         dropdown.classList.remove("active");
-  //       }
-  //     });
-  //   });
+  document.addEventListener("keydown", (e) => {
+    if (isOpen && e.key === "Escape") {
+      dropdown.classList.remove("active");
+      isOpen = false;
+    }
+  });
 
-  //   document.addEventListener("keydown", (e) => {
-  //     if (e.key === "Escape") {
-  //       dropdowns.forEach((dropdown) => {
-  //         dropdown.classList.remove("active");
-  //       });
-  //     }
-  //   });
+  // Search Input
+
+  // let form = document.querySelector(".form");
+  // let inputValue = document.querySelector(".search-input");
+
+  // form.addEventListener("submit", (event) => {
+  //   event.preventDefault();
+  //   console.log(event);
   // });
 </script>
