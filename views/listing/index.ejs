@@ -1,66 +1,232 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
 <style>
-  #filters {
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 20px;
-    align-items: center;
+  :root {
+    --primary: #fe424d;
+    --primary-hover: #fe424d;
+    --transition: all 0.3s ease;
   }
 
-  #filters:hover {
-    border-radius: 5px;
+  /* Filters Section */
+  #filters-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    margin: 0.02rem 0 1.5rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  #filters {
+    display: flex;
+    gap: 1.4rem;
+    flex-wrap: wrap;
   }
 
   .filter {
-    text-align: center;
-    margin-right: 2rem;
-    margin-top: 1.5rem;
-    opacity: 0.7;
-    font-size: 13px;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    background: white;
+    border: 1px solid #dee2e6;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 
-  .filter:hover {
-    opacity: 1;
-    cursor: pointer;
+  .filter:hover,
+  .filter.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.2);
+  }
+
+  /* Tax Toggle */
+  .tax-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .toggle-label {
+    font-size: 0.95rem;
+    color: #495057;
     font-weight: 500;
+  }
+
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ced4da;
+    transition: var(--transition);
+    border-radius: 34px;
+  }
+
+  .toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: var(--transition);
+    border-radius: 50%;
+  }
+
+  input:checked + .toggle-slider {
+    background-color: var(--primary);
+  }
+
+  input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+  }
+
+  /* Listings Grid */
+  .listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .listing-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: var(--transition);
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-img-top {
+    height: 240px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .listing-card:hover .card-img-top {
+    transform: scale(1.03);
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .card-text {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+
+  .price {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--primary);
   }
 
   .tax-info {
     display: none;
+    font-size: 0.85rem;
+    color: #6c757d;
   }
 
-  .tax-toggle {
-    border: 1px solid black;
-    border-radius: 1.5rem;
-    height: 3rem;
-    margin-top: 1rem;
-    padding: 1rem;
+  /* Empty State */
+  .empty-state {
+    height: 60vh;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .empty-icon {
+    font-size: 5rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-create {
+    padding: 0.75rem 1.75rem;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: var(--transition);
+    margin-top: 1.5rem;
+  }
+
+  .btn-create:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(13, 110, 253, 0.3);
   }
 </style>
 
-<% if(alllisting.length > 0) {%>
-<div
-  class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3 <%= alllisting.length <= 3 ? `vh-100` : ``%>"
->
-  <% for(let listing of alllisting){ %>
+<!-- Filters & Tax Toggle -->
+<div id="filters-container">
+  <div id="filters">
+    <div class="filter active">All</div>
+    <div class="filter">Beach</div>
+    <div class="filter">Mountain</div>
+    <div class="filter">Luxury</div>
+    <div class="filter">Lake</div>
+    <div class="filter">Desert</div>
+    <div class="filter">Countryside</div>
+    <div class="filter">Island</div>
+    <div class="filter">River</div>
+    <div class="filter">Hill</div>
+  </div>
 
-  <a href="/listing/<%= listing._id %>" class="listing-link">
-    <div class="card listing-card">
+  <div class="tax-toggle-container">
+    <span class="toggle-label">Show Tax Info</span>
+    <label class="toggle-switch">
+      <input type="checkbox" id="taxToggle" />
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+</div>
+
+<!-- Listings Grid -->
+<% if(alllisting.length > 0) { %>
+<div class="listings-grid mb-5">
+  <% for(let listing of alllisting){ %>
+  <a
+    href="/listing/<%= listing._id %>"
+    class="listing-link text-decoration-none"
+  >
+    <div class="card listing-card h-100">
       <img
         src="<%= listing.image.url %>"
-        class="card-img-top shadow"
-        alt="Listing_image"
-        style="height: 20rem"
+        class="card-img-top"
+        alt="<%= listing.title %>"
       />
-      <div class="card-img-overlay"></div>
       <div class="card-body">
-        <p class="card-text">
-          <b><%= listing.title %></b> <br />
-          &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : '0'
-          %>/ night &nbsp; &nbsp;<i class="tax-info">+ 18% GST </i>
+        <h5 class="card-title fw-bold"><%= listing.title %></h5>
+        <p class="card-text mt-3">
+          <span class="price"
+            >₹<%= listing.price ? listing.price.toLocaleString("en-IN") : '0'
+            %></span
+          >
+          / night
+          <span class="tax-info"> + 18% GST</span>
         </p>
       </div>
     </div>
@@ -68,36 +234,43 @@
   <% } %>
 </div>
 <% } else { %>
-<div
-  class="container text-center vh-100 d-flex justify-content-center align-items-center"
->
-  <div class="no-content-container">
-    <i class="bi bi-cloud-drizzle-fill display-1 text-primary">204</i>
-    <h1 class="display-4 fw-bold mt-4">Nothing to See Here Yet</h1>
-    <p class="lead text-muted mt-3">
-      It seems there's no content to display at the moment.
-      <br />
-      Why not be the first to create something?
-    </p>
-    <a href="/listing/new" class="btn btn-primary btn-lg mt-4">
-      <i class="bi bi-plus-circle me-2"></i>Create New Listing
-    </a>
-  </div>
+<!-- Empty State -->
+<div class="empty-state mb-5">
+  <i class="bi bi-house-heart empty-icon"></i>
+  <h1 class="fw-bold display-5">No Listings Available Yet</h1>
+  <p class="lead text-muted mt-3 max-w-md">
+    It seems there are no properties listed at the moment.<br />
+    Be the first to create a new listing!
+  </p>
+  <a href="/listing/new" class="btn btn-primary btn-lg btn-create">
+    <i class="bi bi-plus-circle me-2"></i>Create New Listing
+  </a>
 </div>
-
-<%}%>
-<br />
+<% } %>
 
 <script>
-  let textSwitch = document.getElementById("flexSwitchCheckDefault");
-  textSwitch.addEventListener("click", () => {
-    let taxInfo = document.getElementsByClassName("tax-info");
-    for (info of taxInfo) {
-      if (info.style.display != "inline") {
-        info.style.display = "inline";
-      } else {
-        info.style.display = "none";
-      }
-    }
+  // Tax toggle functionality
+  const taxToggle = document.getElementById("taxToggle");
+  taxToggle.addEventListener("change", () => {
+    document.querySelectorAll(".tax-info").forEach((info) => {
+      info.style.display = taxToggle.checked ? "inline" : "none";
+    });
   });
+
+  // Filter functionality (example)
+  document.querySelectorAll(".filter").forEach((filter) => {
+    filter.addEventListener("click", () => {
+      document.querySelector(".filter.active").classList.remove("active");
+      filter.classList.add("active");
+      console.log(filter);
+      sendSearchQuery(filter.textContent.toLowerCase());
+    });
+  });
+
+  function sendSearchQuery(query) {
+    if (query === "all") {
+      return (window.location.href = `/listing`);
+    }
+    window.location.href = `/listing/search?q=${encodeURIComponent(query)}`;
+  }
 </script>

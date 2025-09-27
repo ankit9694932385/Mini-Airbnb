@@ -141,7 +141,7 @@ body::-webkit-scrollbar {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  max-width: 57%;
+  max-width: 60%;
   width: 100%;
   padding: 20px;
 }
@@ -230,6 +230,7 @@ body::-webkit-scrollbar {
 
 .card-body {
   padding: 0 !important;
+  font-size: 12px;
 }
 
 .listing-link {
@@ -293,12 +294,67 @@ body::-webkit-scrollbar {
 
 /* SIGN IN PAGE */
 
-.sign-h {
+/* .sign-h {
   margin-left: 15px;
   letter-spacing: 4px;
   font-family: cursive;
   font-weight: 500;
   filter: drop-shadow(1px 1px 2px rgb(215, 0, 0));
+} */
+
+.signup-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f9f9;
+  padding: 40px 20px;
+}
+
+.signup-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.signup-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+  margin-bottom: 30px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.btn-signup {
+  background-color: #ff385c;
+  color: #fff;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 30px;
+  transition: background 0.3s;
+}
+
+.btn-signup:hover {
+  background-color: #e03150;
+}
+
+.form-control:focus {
+  border-color: #ff385c;
+  box-shadow: 0 0 0 0.2rem rgba(255, 56, 92, 0.2);
 }
 
 /* Logout */
@@ -318,7 +374,6 @@ body::-webkit-scrollbar {
   background-color: #fe424d;
 }
 
-/* plus sign */
 .sign {
   width: 100%;
   transition-duration: 0.3s;
@@ -335,7 +390,7 @@ body::-webkit-scrollbar {
 .sign svg path {
   fill: white;
 }
-/* text */
+
 .text {
   position: absolute;
   right: 0%;
@@ -346,7 +401,7 @@ body::-webkit-scrollbar {
   font-weight: 600;
   transition-duration: 0.3s;
 }
-/* hover effect on button width */
+
 .Btn:hover {
   width: 100px;
   border-radius: 40px;
@@ -358,7 +413,7 @@ body::-webkit-scrollbar {
   transition-duration: 0.3s;
   padding-left: 20px;
 }
-/* hover effect button's text */
+
 .Btn:hover .text {
   opacity: 1;
   width: 70%;
@@ -366,19 +421,15 @@ body::-webkit-scrollbar {
   padding-right: 10px;
   margin-right: 12px;
 }
-/* button click effect*/
+
 .Btn:active {
   transform: translate(2px, 2px);
 }
-
-/*  New Account  */
 
 .new-acc {
   text-decoration: none;
   font-weight: 700;
 }
-
-/* Review Background */
 
 .review-bg {
   background-color: #ebebeb !important;
@@ -435,4 +486,79 @@ body::-webkit-scrollbar {
 .no-content-container .btn-primary:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 15px rgba(13, 110, 253, 0.3);
+}
+/* Navbar profile */
+
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff385c, #fd5b78);
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  width: 300px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  overflow: hidden;
+  transform: translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+  gap: 15px;
+}
+
+.profile-header img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid white;
+  object-fit: cover;
+}
+
+.profile-info {
+  color: white;
+}
+
+.profile-info h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.profile-info p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.profile-container:hover .profile-dropdown {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
 }

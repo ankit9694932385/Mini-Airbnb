@@ -1,0 +1,124 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<style>
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 20px;
+    align-items: center;
+  }
+
+  #filters:hover {
+    border-radius: 5px;
+  }
+
+  .filter {
+    text-align: center;
+    margin-right: 2rem;
+    margin-top: 1.5rem;
+    opacity: 0.7;
+    font-size: 13px;
+  }
+
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .tax-info {
+    display: none;
+  }
+
+  .tax-toggle {
+    border: 1px solid black;
+    border-radius: 1.5rem;
+    height: 3rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+  }
+</style>
+
+<% if(alllisting.length > 0) {%>
+<div
+  class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3 <%= alllisting.length <= 3 ? `vh-100` : ``%>"
+>
+  <% for(let listing of alllisting){ %>
+
+  <a href="/listing/<%= listing._id %>" class="listing-link">
+    <div class="card listing-card">
+      <img
+        src="<%= listing.image.url %>"
+        class="card-img-top shadow"
+        alt="Listing_image"
+        style="height: 20rem"
+      />
+      <div class="card-img-overlay"></div>
+      <div class="card-body">
+        <p class="card-text">
+          <b><%= listing.title %></b> <br />
+          &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : '0'
+          %>/ night &nbsp; &nbsp;<i class="tax-info">+ 18% GST </i>
+        </p>
+      </div>
+    </div>
+  </a>
+  <% } %>
+</div>
+<% } else { %>
+<div
+  class="container vh-75 d-flex justify-content-center align-items-center mb-5 mt-4"
+>
+  <div class="card shadow-lg border-0 rounded-3" style="max-width: 500px">
+    <div class="card-body text-center p-5">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/2748/2748558.png"
+        alt="No results found icon"
+        class="img-fluid mb-4"
+        style="width: 90px; opacity: 0.7"
+      />
+      <h1 class="h3 fw-bold text-danger mb-3">No Listings Found</h1>
+      <p class="lead text-muted mb-4">
+        Unfortunately, we couldn't find any listings matching your search for
+        "<strong><%= searchQuery %></strong>".
+      </p>
+
+      <div class="alert alert-info text-start small">
+        <h5 class="alert-heading h6 fw-semibold">Search Suggestions:</h5>
+        <ul class="list-unstyled mb-0">
+          <li class="d-flex align-items-center mb-1">
+            <i class="bi bi-check-circle-fill me-2 text-success"></i>
+            <span>Try using broader keywords (e.g., "Beach", "Mountain").</span>
+          </li>
+          <li class="d-flex align-items-center">
+            <i class="bi bi-check-circle-fill me-2 text-success"></i>
+            <span>Double-check your spelling and try again.</span>
+          </li>
+        </ul>
+      </div>
+
+      <a href="/listing" class="btn btn-danger mt-4 px-4 rounded-pill">
+        <i class="bi bi-arrow-left me-2"></i>Back to All Listings
+      </a>
+    </div>
+  </div>
+</div>
+
+<%}%>
+<br />
+
+<script>
+  let textSwitch = document.getElementById("flexSwitchCheckDefault");
+  textSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (info of taxInfo) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+</script>

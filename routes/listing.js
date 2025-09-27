@@ -35,6 +35,7 @@ router.get(
 
 // NEW ROUTE
 router.get("/new", isLoggedIn, (req, res) => {
+
   res.render("listing/new.ejs");
 });
 
@@ -44,9 +45,11 @@ router.get("/new", isLoggedIn, (req, res) => {
 router.get(
   "/search",
   wrapAsync(async (req, res) => {
-    let { searchData } = req.query
-    console.log(searchData)
-
+    console.log("request coming")
+    let { q } = req.query
+    let alllisting = await Listing.find({ category: `${q.toLowerCase()}` });
+    console.log(alllisting)
+    res.render("listing/searchData.ejs", { alllisting, searchQuery: q })
   })
 );
 
@@ -88,6 +91,7 @@ router.post(
     let filename = req.file.filename;
 
     let { listing } = req.body;
+
     listing = { ...listing };
 
     if (req.file) {

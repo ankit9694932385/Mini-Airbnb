@@ -1,103 +1,162 @@
-<% layout("/layouts/boilerplate.ejs") %> <br />
+<% layout("/layouts/boilerplate.ejs") %>
+<link rel="stylesheet" href="/css/profile.css" />
 
-<% if (currUserData && currUserData.length > 0) { %> <%= let userProfile =
-currUserData[0]; %> <% } else { %>
-<h2>No profile data available.</h2>
-<% } %>
+<div class="profileContainer">
+  <!-- Modern Profile Header -->
 
-<!-- Extract the first user profile -->
+  <div class="profileHeader">
+    <img
+      src="https://images.unsplash.com/photo-1740252117070-7aa2955b25f8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTh8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D"
+      alt="Profile"
+      class="profilePic"
+    />
 
-<div class="container profilepage-container d-flex">
-  <!-- profile-section  -->
+    <div class="profileInfo">
+      <h1 class="profileName text-capitalize"><%= user.username %> Kumawat</h1>
 
-  <div class="row d-flex justify-content-start me-2 mt-4 col-4">
-    <div class="col-12 profile-section">
-      <div class="card profile-card w-100 p-4 h-50">
-        <div class="text-center">
-          <img
-            src="https://i.imgur.com/bDLhJiP.jpg"
-            width="100"
-            class="rounded-circle"
-          />
+      <div class="profileLocation">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>San Francisco, California</span>
+      </div>
+
+      <div class="verified-badge">
+        <i class="fas fa-check-circle"></i>
+        <span>Identity verified • Superhost</span>
+      </div>
+
+      <div class="profileStats">
+        <div class="stat-item text-center">
+          <span class="stat-value">345</span>
+          <span class="stat-label">Rating</span>
         </div>
-
-        <div class="text-center mt-3 position-relative">
-          <div class="text-center d-inline-flex flex-column">
-            <div class="text-capitalize text-start">
-              <i class="fa-solid fa-user"></i>
-              &nbsp;&nbsp;<%= userProfile.owner.username %> <br />
-            </div>
-            <div class="text-start mt-2">
-              <i class="fa-solid fa-envelope mt-2"></i> &nbsp; <%=
-              userProfile.owner.email %>
-            </div>
-            <div class="text-start mt-2">
-              <i class="fa-solid fa-briefcase mt-2"></i> &nbsp;
-              <select name="" id="" class="border-0">
-                <option value="">Web Developer</option>
-                <option value="">House Wife</option>
-                <option value="">Worker</option>
-                <option value="">Gamer</option>
-              </select>
-            </div>
-          </div>
-
-          <ul class="social-list mt-4">
-            <a href="https://www.facebook.com"
-              ><li><i class="fa-brands fa-facebook text-primary"></i></li
-            ></a>
-            <a href="https://www.instagram.com"
-              ><li><i class="fa-brands fa-instagram text-danger"></i></li
-            ></a>
-            <a href="https://www.linkedin.com"
-              ><li><i class="fa-brands fa-linkedin text-primary"></i></li
-            ></a>
-          </ul>
+        <div class="stat-item text-center">
+          <span class="stat-value">5345</span>
+          <span class="stat-label">Reviews</span>
         </div>
+        <div class="stat-item text-center">
+          <span class="stat-value">5</span>
+          <span class="stat-label">Years hosting</span>
+        </div>
+        <div class="stat-item text-center">
+          <span class="stat-value"><%= userlistings.length %></span>
+          <span class="stat-label">Total- listings </span>
+        </div>
+      </div>
+
+      <div class="profileActions">
+        <button class="profileBtn btn-primary">
+          <i class="fas fa-envelope"></i> Contact Host
+        </button>
+        <button class="profileBtn btn-secondary">
+          <i class="fas fa-share-alt"></i> Share Profile
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- listing-section  -->
+  <!--  Profile Tabs -->
+  <div class="profileTabs">
+    <button class="tab active">Listings</button>
+    <button class="tab">Reviews</button>
+    <button class="tab">About</button>
+    <button class="tab">References</button>
+    <button class="tab">Travel Stories</button>
+  </div>
 
-  <div class="row col-9" data-bs-spy="scroll">
-    <div class="listing-section col-12">
-      <h4 class="card-title text-center text-danger tracking-wide">
-        MY &nbsp; LISTINGS
-      </h4>
-      <br />
-      <% if(currUserData.length <= 0) { %>
-      <h2>No listing created yet</h2>
-      <a href="">Create One</a>
-      <% } else {%>
-      <div class="card-columns d-flex flex-wrap justify-content-center">
-        <% for(let currData of currUserData){ %>
-        <div class="card profile-listing-card mb-2">
-          <a>
-            <img
-              class="card-img-top"
-              src="<%= currData.image.url %>"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h5 class="card-title"><%= currData.title %></h5>
-              <p class="card-text"><%= currData.description %></p>
-              <p class="card-text card-text-2">
-                <small class="text-muted">
-                  <i class="fas fa-calendar-alt me-2"></i>Jan 20, 2018
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <i class="fa-solid fa-location-dot"></i>&nbsp; <%=
-                  currData.country %></small
-                >
-              </p>
+  <h2 class="section-header text-capitalize">
+    <%= user.username %>'s listings
+  </h2>
+  <div class="listings-grid">
+    <!-- Listings -->
+    <% if(userlistings.length > 0) {%> <% for( listing of userlistings ){ %>
+    <a class="text-decoration-none" href="/listing/<%= listing._id %>">
+      <div class="listing-card" style="--i: 1">
+        <img
+          src="<%= listing.image.url %> "
+          `
+          alt="Modern Apartment"
+          class="listing-img"
+        />
+        <div class="listing-content">
+          <div class="listing-header">
+            <h3 class="listing-title"><%= listing.title %></h3>
+            <div class="listing-price">
+              $<%= listing.price %><span>/night</span>
             </div>
-          </a>
+          </div>
+          <div class="listing-meta">
+            <span><i class="fas fa-home"></i> Entire apartment</span>
+            <span><i class="fas fa-user-friends"></i> 2 guests</span>
+            <span><i class="fas fa-bed"></i> 1 bedroom</span>
+          </div>
+          <div class="listing-rating">
+            <i class="fas fa-star"></i>
+            <span>4.92</span>
+            <span>(124 reviews)</span>
+          </div>
         </div>
-        <% } %>
       </div>
-      <% } %>
+    </a>
+    <%} %> <%}else { %>
+    <!-- Empty State -->
+    <div class="empty-state mb-5">
+      <i class="bi bi-house-heart empty-icon"></i>
+      <h1 class="fw-bold display-5">No Listings Available Yet</h1>
+      <p class="lead text-muted mt-3 max-w-md">
+        It seems there are no properties listed at the moment.<br />
+        Be the first to create a new listing!
+      </p>
+      <a href="/listing/new" class="btn btn-primary btn-lg btn-create">
+        <i class="bi bi-plus-circle me-2"></i>Create your first Listing
+      </a>
     </div>
+    <% } %>
+  </div>
+
+  <!-- Reviews Section with Modern Cards -->
+  <div class="reviews-container">
+    <div class="review-header">
+      <h2>Guest Reviews</h2>
+      <div class="listing-rating">
+        <i class="fas fa-star"></i>
+        <span>4.89</span>
+        <span>(127 reviews)</span>
+      </div>
+    </div>
+
+    <% userlistings.forEach(listing => { %> <% listing.review.forEach(review =>
+    { %>
+    <div class="review-card">
+      <div class="review-meta">
+        <img
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+          alt="Reviewer"
+          class="reviewer-pic"
+        />
+        <div>
+          <div class="reviewer-name text-capitalize">
+            <%= review.author.username %>
+          </div>
+          <div class="review-date">
+            <%= new Date(review.createdAt).toLocaleDateString("en-IN") %> •
+            Stayed at <%= listing.title %>
+          </div>
+        </div>
+      </div>
+      <div class="review-rating">
+        <% for(i=0; i < review.rating;i++){ %>
+        <i class="fas fa-star"></i>
+        <%} %>
+      </div>
+      <p>
+        Alexandra's apartment was perfect for our city getaway. The location
+        couldn't be better, right in the heart of downtown. The place was
+        spotless and had everything we needed. Would definitely stay here again!
+        The attention to detail and hospitality were exceptional.
+      </p>
+    </div>
+    <% }) %> <% }) %>
   </div>
 </div>
 
-<br /><br />
+<script></script>

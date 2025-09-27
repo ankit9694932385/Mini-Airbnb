@@ -1,120 +1,161 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
 <br />
-<h3 class="edit-heading">Edit Your Listing</h3>
-<div class="row">
-  <div class="cols">
-    <form
+<h3 class="edit-heading mb-4 offset-2">Edit Your Listing</h3>
+
+<div class="row justify-content-center mb-5">
+  <div class="col-lg-8">
+    <form 
       method="POST"
       action="/listing/<%= data._id %>?_method=PUT"
       novalidate
       class="needs-validation was-validated"
       enctype="multipart/form-data"
     >
-      <!-- TITLE -->
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input
+      <!-- Title Field -->
+      <div class="mb-4">
+        <label for="title" class="form-label fw-bold">Title*</label>
+        <input 
           name="listing[title]"
-          value="<%= data.title %>"
+          id="title"
           type="text"
           class="form-control"
+          value="<%= data.title %>"
           required
         />
         <div class="valid-feedback">Title looks good</div>
+        <div class="invalid-feedback">Please enter a valid title</div>
       </div>
 
-      <!-- DESCRIPTION -->
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
+      <!-- Description Field -->
+      <div class="mb-4">
+        <label for="description" class="form-label fw-bold">Description*</label>
         <textarea
           name="listing[description]"
-          minlength="5"
-          type="text"
-          rows="5"
-          cols="30"
+          id="description"
           class="form-control"
+          rows="5"
+          minlength="20"
           required
-        >
-<%= data.description %></textarea
-        >
+        ><%= data.description %></textarea>
+        <div class="valid-feedback">Description looks good!</div>
         <div class="invalid-feedback">
-          Enter valid description (min - 20 char.)
+          Minimum 20 characters required
         </div>
-        <div class="valid-feedback">Looks Good !</div>
       </div>
 
-      <!-- IMAGE -->
-      <div class="mb-3">
-        <label for="image" class="form-label">Image</label>
+      <!-- Image Upload -->
+      <div class="mb-4">
+        <label class="form-label fw-bold">Image</label>
+        
+        <!-- Current Image Preview -->
+        <% if(data.image && data.image.url) { %>
+          <div class="mb-3">
+            <p class="text-muted mb-1">Current Image:</p>
+            <img 
+              src="<%= data.image.url %>" 
+              alt="Current listing image" 
+              class="img-thumbnail preview-image"
+              style="max-height: 200px;"
+            >
+          </div>
+        <% } %>
+        
         <input
           name="listing[image]"
           type="file"
-          value="<%= data.image.url %>"
           class="form-control"
+          accept="image/*"
         />
+        <div class="form-text">Leave blank to keep current image</div>
       </div>
 
-      <!-- PRICE -->
-      <div class="row">
-        <div class="mb-3 col-md-4">
-          <label for="price" class="form-label">Price</label>
-          <input
-            name="listing[price]"
-            type="number"
-            min="0"
-            step="50"
-            value="<%= data.price %>"
-            class="form-control"
-            required
-          />
-          <div class="invalid-feedback">Enter valid price</div>
-          <div class="valid-feedback">Looks Good !</div>
+      <!-- Price/Country/Category Group -->
+      <div class="row g-3 mb-4">
+        <!-- Price -->
+        <div class="col-md-4">
+          <label for="price" class="form-label fw-bold">Price*</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input
+              name="listing[price]"
+              id="price"
+              type="number"
+              min="0"
+              step="50"
+              value="<%= data.price %>"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="valid-feedback">Price is valid</div>
+          <div class="invalid-feedback">Minimum price: $0</div>
         </div>
-        <!-- COUNTRY -->
-        <div class="mb-3 col-md-4">
-          <label for="country" class="form-label">Country</label>
+
+        <!-- Country -->
+        <div class="col-md-4">
+          <label for="country" class="form-label fw-bold">Country*</label>
           <input
             name="listing[country]"
+            id="country"
             type="text"
-            min-length="1"
             value="<%= data.country %>"
             class="form-control"
             required
           />
-          <div class="invalid-feedback">Enter valid country</div>
-          <div class="valid-feedback">Looks Good !</div>
+          <div class="valid-feedback">Country is valid</div>
+          <div class="invalid-feedback">Please enter a country</div>
         </div>
-        <!-- CATEGORY -->
-        <div class="mb-3 col-md-4">
-          <label for="category" class="form-label">Category</label>
-          <input
+
+        <!-- Category -->
+        <div class="col-md-4">
+          <label for="category" class="form-label fw-bold">Category*</label>
+          <select
             name="listing[category]"
-            type="text"
-            placeholder="Beach"
-            class="form-control"
+            id="category"
+            class="form-select"
             required
-          />
-          <div class="invalid-feedback">Enter valid data</div>
-          <div class="valid-feedback">looks good !</div>
+          >
+            <option value="" disabled>Choose one</option>
+            <% const categories = [
+              'beach', 'mountain', 'lake', 'desert', 
+              'desert', 'countryside', 'island', 'city',
+              'village', 'snow', 'river', 'hill',
+              'jungle', 'heritage'
+            ]; %>
+            <% categories.forEach(cat => { %>
+              <option 
+                value="<%= cat %>" 
+                <%= data.category === cat ? 'selected' : '' %>
+              >
+                <%= cat.charAt(0).toUpperCase() + cat.slice(1) %>
+              </option>
+            <% }); %>
+          </select>
+          <div class="valid-feedback">Category selected</div>
+          <div class="invalid-feedback">Please choose a category</div>
         </div>
       </div>
-      <!-- LOCATION -->
-      <div class="mb-3">
-        <label for="location" class="form-label">Location</label>
+
+      <!-- Location -->
+      <div class="mb-4">
+        <label for="location" class="form-label fw-bold">Location*</label>
         <input
           name="listing[location]"
+          id="location"
           type="text"
-          minlength="1"
           value="<%= data.location %>"
           class="form-control"
           required
         />
-        <div class="invalid-feedback">Enter valid Location</div>
-        <div class="valid-feedback">Looks Good !</div>
+        <div class="valid-feedback">Location is valid</div>
+        <div class="invalid-feedback">Please enter a location</div>
       </div>
 
-      <button class="btn btn-dark edit-btn">Save</button><br /><br />
+      <!-- Submit Button -->
+      <div class="d-grid mt-5">
+        <button class="btn new-btn btn-dark btn-lg">Save Changes</button>
+      </div>
     </form>
   </div>
 </div>

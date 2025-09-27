@@ -6,6 +6,7 @@ const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
+const review = require("../models/review.js");
 
 // USER SIGNUP ROUTE
 
@@ -69,15 +70,23 @@ router.get(
   wrapAsync(async (req, res) => {
     const currUserData = await Listing.find({ owner: req.user._id }).populate(
       "owner"
-    );
+    ).populate({
+      path: "review",           // first populate the reviews
+      populate: {
+        path: "author",         // then inside reviews, populate author
+        model: "User"
+      }
+    })
 
-    // if (!currUserData.length) {
-    //   req.flash("error", "You have not posted any listing yet");
-    //   return res.redirect("/listing");
-    // }
-    console.log(currUserData);
-    // res.render("user/profile.ejs", { currUserData });
-    res.send("profile page");
+
+
+
+
+    if (!currUserData.length) {
+      req.flash("error", "Create Listing to Watch Profile.");
+      return res.redirect("/listing");
+    }
+    res.render("user/profile.ejs", { userlistings: currUserData, user: currUserData[0].owner, totalRatingSum });
   })
 );
 

@@ -4,114 +4,137 @@
 <body>
   <div class="row">
     <div class="col-8 offset-2">
-      <h2>Create New Listing</h2>
+      <h2 class="mb-4">Create New Listing</h2>
+
       <form
         method="POST"
         action="/listing"
-        novalidate
-        class="needs-validation"
         enctype="multipart/form-data"
+        class="needs-validation"
+        novalidate
       >
-        <!-- Title -->
+        <!-- TITLE -->
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input
-            name="listing[title]"
             type="text"
-            placeholder="Add a patchy Title"
+            name="listing[title]"
+            id="title"
             class="form-control"
+            placeholder="Add a catchy title"
             required
           />
-          <div class="invalid-feedback">Enter valid title</div>
-          <div class="valid-feedback">looks good !</div>
+          <div class="invalid-feedback">Please enter a valid title.</div>
+          <div class="valid-feedback">Looks good!</div>
         </div>
-        <!-- Description -->
+
+        <!-- DESCRIPTION -->
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
           <textarea
             name="listing[description]"
-            minlength="5"
-            type="text"
-            placeholder="Enter description"
-            rows="5"
-            cols="30"
+            id="description"
             class="form-control"
+            placeholder="Enter a detailed description"
+            rows="5"
+            minlength="5"
             required
           ></textarea>
-          <div class="invalid-feedback">Enter valid description</div>
-          <div class="valid-feedback">looks good !</div>
+          <div class="invalid-feedback">
+            Description must be at least 5 characters long.
+          </div>
+          <div class="valid-feedback">Looks good!</div>
         </div>
 
-        <!-- Image -->
+        <!-- IMAGE -->
         <div class="mb-3">
           <label for="image" class="form-label">Image</label>
           <input
-            name="listing[image]"
             type="file"
-            class="form-control"
+            name="listing[image]"
             id="image"
+            class="form-control"
             required
           />
+          <div class="invalid-feedback">Please upload an image.</div>
         </div>
-        <!-- Price -->
+
+        <!-- PRICE, COUNTRY, CATEGORY -->
         <div class="row">
+          <!-- PRICE -->
           <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
             <input
-              name="listing[price]"
               type="number"
+              name="listing[price]"
+              id="price"
+              class="form-control"
+              placeholder="Enter price"
               min="0"
               step="50"
-              placeholder="Enter price"
-              class="form-control"
               required
             />
-            <div class="invalid-feedback">Enter valid price</div>
-            <div class="valid-feedback">looks good !</div>
+            <div class="invalid-feedback">Please enter a valid price.</div>
+            <div class="valid-feedback">Looks good!</div>
           </div>
-          <!-- Country -->
+
+          <!-- COUNTRY -->
           <div class="mb-3 col-md-4">
             <label for="country" class="form-label">Country</label>
             <input
-              name="listing[country]"
               type="text"
-              placeholder="India"
+              name="listing[country]"
+              id="country"
               class="form-control"
+              placeholder="India"
               required
             />
-            <div class="invalid-feedback">Enter valid country</div>
-            <div class="valid-feedback">looks good !</div>
+            <div class="invalid-feedback">Please enter a valid country.</div>
+            <div class="valid-feedback">Looks good!</div>
           </div>
 
-          <!-- Category -->
+          <!-- CATEGORY -->
           <div class="mb-3 col-md-4">
             <label for="category" class="form-label">Category</label>
-            <input
+            <select
               name="listing[category]"
-              type="text"
-              placeholder=" Beach"
-              class="form-control"
+              id="category"
+              class="form-select"
               required
-            />
-            <div class="invalid-feedback">Enter valid data</div>
-            <div class="valid-feedback">looks good !</div>
+            >
+              <option value="" disabled selected>Choose one</option>
+              <% const categories = [ "beach", "mountain", "lake", "desert",
+              "forest", "countryside", "island", "city", "village", "snow",
+              "river", "hill", "jungle", "heritage" ]; %> <%
+              categories.forEach(cat => { %>
+              <option value="<%= cat %>">
+                <%= cat.charAt(0).toUpperCase() + cat.slice(1) %>
+              </option>
+              <% }) %>
+            </select>
+            <div class="invalid-feedback">Please select a category.</div>
+            <div class="valid-feedback">Looks good!</div>
           </div>
         </div>
-        <!-- Location -->
+
         <div class="mb-3">
           <label for="location" class="form-label">Location</label>
           <input
-            name="listing[location]"
             type="text"
-            placeholder="Jaipur,Rajasthan "
+            name="listing[location]"
+            id="location"
             class="form-control"
+            placeholder="Jaipur, Rajasthan"
             required
           />
-          <div class="invalid-feedback">Enter valid Location</div>
-          <div class="valid-feedback">looks good !</div>
+          <div class="invalid-feedback">Please enter a valid location.</div>
+          <div class="valid-feedback">Looks good!</div>
         </div>
 
-        <button class="btn btn-dark new-btn">Add Detail</button><br /><br />
+        <div class="d-grid mt-5">
+          <button class="btn new-btn btn-dark btn-lg">Add Listing</button>
+        </div>
+        <br /><br />
       </form>
     </div>
   </div>

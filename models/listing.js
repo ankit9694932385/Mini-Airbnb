@@ -34,6 +34,7 @@ const listingSchema = new Schema({
   category: {
     type: String,
     required: true,
+    lowercase: true
   },
 
   review: [
